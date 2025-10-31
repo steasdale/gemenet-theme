@@ -1,0 +1,111 @@
+/* =========================================================
+   GEMENET — Clean header + content alignment
+   ========================================================= */
+
+/* 0) GLOBAL EDGE COLOR (optional if your site already matches) */
+html, body {
+  background-color: #F7F1E7;
+  overflow-x: hidden; /* guard against accidental horizontal scroll */
+}
+
+/* 1) FULL-BLEED HEADER BACKGROUND
+   Put the color on the header wrapper, not the inner .container.
+   (Covers common header wrappers used by Omeka-S themes.)
+*/
+header,
+.main-header,
+.site-header {
+  background: #F7F1E7 !important;
+}
+
+/* Keep the bars themselves transparent so the wrapper shows through */
+.main-header__top-bar,
+.main-header__main-bar {
+  background: transparent !important;
+  height: auto !important;     /* allow natural height */
+  min-height: 120px;           /* space for logo */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* 1a) REMOVE ALL PREVIOUS “VW BREAKOUT” HACKS (caused overshoot) */
+.main-header__top-bar,
+.main-header__main-bar {
+  left: auto !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  position: static !important;
+}
+.main-header__top-bar::before,
+.main-header__main-bar::before {
+  content: none !important;
+}
+
+/* 2) HEADER CONTENT ALIGNMENT
+   Make the header's content box match the main content geometry.
+   If your bars *are* the .container element, this covers it.
+   If your bars CONTAIN a .container, the child selector covers that too.
+*/
+:root {
+  /* Adjust only if your .blocks uses different horizontal padding */
+  --site-pad: 24px;
+}
+
+.main-header__top-bar.container,
+.main-header__main-bar.container,
+.main-header__top-bar > .container,
+.main-header__main-bar > .container {
+  /* Do NOT set a max-width here; let your theme's .container define it.
+     We only normalize padding and centering so it matches .blocks. */
+  padding-left: var(--site-pad);
+  padding-right: var(--site-pad);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 3) MAIN CONTENT BACKGROUND + GEOMETRY */
+.main-content.container,
+.blocks {
+  background-color: #F7F1E7 !important;
+  padding-left: var(--site-pad);
+  padding-right: var(--site-pad);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* 4) LOGO + NAV LAYOUT */
+.main-header__site-title { flex: 0 0 auto; }  /* logo hugs left edge of content box */
+.main-navigation        { margin-left: auto; min-width: 0; }  /* nav to right */
+
+/* Logo sizing—no distortion */
+.main-header__site-title img {
+  height: 90px;       /* adjust as desired (120px if you prefer) */
+  width: auto;
+  display: block;
+  max-height: none !important;
+  vertical-align: middle;
+}
+
+/* Nav link line-height so it doesn't force a fixed header height */
+.main-navigation__container ul.navigation li a {
+  line-height: 1.2;
+}
+
+/* 5) RESPONSIVE TWEAKS */
+@media (max-width: 992px) {
+  .main-header__site-title img { height: 80px; }
+}
+@media (max-width: 640px) {
+  .main-header__site-title img { height: 64px; }
+  .main-header__main-bar.container,
+  .main-header__main-bar > .container { flex-wrap: wrap; }
+}
