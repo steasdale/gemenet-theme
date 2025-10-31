@@ -207,3 +207,55 @@ header,
 
 /* Optional: unify footer if it’s showing white */
 footer, .site-footer, #site-footer { background: #F7F1E7 !important; }
+
+/* === Full-bleed background for TOP + MAIN header bars via ::before === */
+.main-header__top-bar,
+.main-header__main-bar {
+  position: relative; /* anchor the pseudo-element */
+  z-index: 0;         /* keep content above the background layer */
+}
+
+/* Create a full-width background layer that ignores the .container width */
+.main-header__top-bar::before,
+.main-header__main-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  background: #F7F1E7;
+  z-index: -1; /* sit behind the header content */
+}
+
+/* If any theme rule painted the container white, neutralize it */
+.main-header__top-bar.container,
+.main-header__main-bar.container {
+  background: transparent !important;
+}
+
+/* === Main content background (keep) === */
+.main-content.container {
+  background-color: #F7F1E7 !important;
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Readability on the light bg (keep) */
+.main-content.container,
+.main-content.container p,
+.main-content.container h1,
+.main-content.container h2,
+.main-content.container h3 {
+  color: #222;
+}
+
+/* Prevent horizontal scroll from full-bleed background layers */
+html, body { overflow-x: hidden; }
+
+/* Optional: unify the page edge if anything beyond headers/content shows */
+body { background-color: #F7F1E7; }
