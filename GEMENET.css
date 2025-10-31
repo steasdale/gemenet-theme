@@ -23,9 +23,9 @@ header,
 .main-header__main-bar {
   background: transparent !important;
   height: auto !important;
-  min-height: 120px;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  min-height: 90px;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 /* Remove any leftover breakout/absolute hacks */
@@ -41,7 +41,7 @@ header,
   content: none !important;
 }
 
-/* 2) ALIGN HEADER CONTENT WITH MAIN CONTENT (.blocks) */
+/* 3) ALIGN HEADER CONTENT WITH MAIN CONTENT (.blocks) */
 :root {
   /* Adjust to match your .blocks padding if needed */
   --site-pad: 24px;
@@ -123,3 +123,87 @@ hr.alignfull {
 }
 
 
+/* ===== 0) Global page background ===== */
+html, body {
+  background: #F7F1E7 !important;
+  color: #222;
+}
+
+/* ===== 1) Header background (full-bleed) ===== */
+header,
+.main-header,
+.site-header,
+#site-header {
+  background: #F7F1E7 !important;
+}
+
+/* Keep the inner bars transparent so wrapper color shows */
+.main-header__top-bar,
+.main-header__main-bar {
+  background: transparent !important;
+  position: static !important;      /* remove any breakout hacks */
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/* ===== 2) Main content wrappers – make them the same color ===== */
+#main-content,
+.main-content,
+.main-content.container,
+.site-page,
+.site-page-show,
+.page,
+.wrap,
+.blocks,
+.blocks > *,
+.region,
+.section,
+.content,
+.layout,
+.page-layout {
+  background: #F7F1E7 !important;
+}
+
+/* Neutralize common layout boxes that may be forcing white */
+.container,
+.container-fluid,
+.row {
+  background: transparent !important;
+}
+
+/* ===== 3) Keep header content aligned with .blocks ===== */
+:root { --site-pad: 24px; } /* adjust if your blocks use a different gutter */
+
+.main-header__top-bar.container,
+.main-header__main-bar.container,
+.main-header__top-bar > .container,
+.main-header__main-bar > .container,
+#main-content.container,
+#main-content .blocks {
+  padding-left: var(--site-pad);
+  padding-right: var(--site-pad);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Layout: logo left, nav right */
+.main-header__main-bar.container,
+.main-header__main-bar > .container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.main-header__site-title { flex: 0 0 auto; }
+.main-navigation        { margin-left: auto; min-width: 0; }
+
+/* Logo sizing without distortion */
+.main-header__site-title img {
+  height: 100px; /* adjust as desired */
+  width: auto;
+  display: block;
+  max-height: none !important;
+}
+
+/* Optional: unify footer if it’s showing white */
+footer, .site-footer, #site-footer { background: #F7F1E7 !important; }
